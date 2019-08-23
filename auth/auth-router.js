@@ -14,7 +14,7 @@ router.post('/register', validateUser, async (req, res) => {
     const newUser = await userDB.addUser(user);
     res.status(201).json(newUser);  
   } catch (error) {
-    res.status(500).json({ message: error.message || 'Error registering user' });
+    res.status(500).json({ message: 'Error registering user' });
   }
 });
 
@@ -35,7 +35,7 @@ router.post('/login', validateUser, async (req, res) => {
     }
 
   } catch (error) {
-    res.status(500).json({ message: error.message || 'Error logging in user' });
+    res.status(500).json({ message: 'Error logging in user' });
   }
 });
 
