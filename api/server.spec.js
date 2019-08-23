@@ -52,7 +52,6 @@ describe('/POST /api/auth/login', () => {
       .then(response => {
         expect(response.body).toHaveProperty('token')
         expect(response.body).toHaveProperty('message')
-        token = response.body.token; 
       })
   })
 
@@ -69,23 +68,21 @@ describe('/POST /api/auth/login', () => {
   })
 })
 
-
 let token; 
 
-beforeAll(done => {
-  request(server)
-    .post('/login')
-    .send({
-      username: 'username3',
-      password: 'password3',
-    })
-    .end((error, response) => {
-      token = response.body.token; 
-      done();
-    })
-})
-
 describe('GET /api/jokes', () => {
+  beforeAll(done => {
+    request(server)
+      .post('/api/auth/login')
+      .send({
+        username: 'username3',
+        password: 'password3',
+      })
+      .end((error, response) => {
+        token = response.body.token; 
+        done();
+      })
+  })
 
   it('should return an array of data', () => {
     return request(server)
